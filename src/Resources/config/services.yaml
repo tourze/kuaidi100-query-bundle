@@ -1,0 +1,18 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  Kuaidi100QueryBundle\Command\:
+    resource: '../../Command/'
+  Kuaidi100QueryBundle\Controller\:
+    resource: '../../Controller/'
+  Kuaidi100QueryBundle\DataFixtures\:
+    resource: '../../DataFixtures/'
+  Kuaidi100QueryBundle\EventSubscriber\:
+    resource: '../../EventSubscriber/'
+  Kuaidi100QueryBundle\Repository\:
+    resource: '../../Repository/'
+  Kuaidi100QueryBundle\Service\:
+    resource: '../../Service/'
