@@ -49,5 +49,10 @@
     "psr-4": {
       "Kuaidi100QueryBundle\\": "src"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kuaidi100QueryBundle\\Tests\\": "tests"
+    }
   }
 }
