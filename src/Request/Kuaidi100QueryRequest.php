@@ -70,12 +70,12 @@ class Kuaidi100QueryRequest extends BaseRequest implements CacheRequest, SignReq
 
     public function getCacheDuration(): int
     {
-        return HOUR_IN_SECONDS;
+        return 60 * 60;
     }
 
     public function getSing(): string
     {
-        return mb_strtoupper(md5($this->getSingStr()));
+        return strtoupper(md5($this->getSingStr()));
     }
 
     public function getSingStr(): string
