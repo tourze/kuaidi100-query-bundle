@@ -38,8 +38,6 @@ class Kuaidi100QueryRequestTest extends TestCase
     {
         // 测试请求选项是否正确生成
         $options = $this->request->getRequestOptions();
-        
-        $this->assertIsArray($options);
         $this->assertArrayHasKey('customer', $options);
         $this->assertArrayHasKey('param', $options);
         $this->assertEquals('test_customer', $options['customer']);

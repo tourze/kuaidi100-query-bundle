@@ -39,8 +39,6 @@ class PollRequestTest extends TestCase
     {
         // 测试请求选项是否正确生成
         $options = $this->request->getRequestOptions();
-        
-        $this->assertIsArray($options);
         $this->assertArrayHasKey('param', $options);
         
         // 解码JSON参数并验证

@@ -16,40 +16,21 @@ use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
 use Tourze\DoctrineUserBundle\Attribute\CreatedByColumn;
 use Tourze\DoctrineUserBundle\Attribute\UpdatedByColumn;
-use Tourze\EasyAdmin\Attribute\Action\Creatable;
-use Tourze\EasyAdmin\Attribute\Action\Deletable;
-use Tourze\EasyAdmin\Attribute\Action\Editable;
 use Tourze\EasyAdmin\Attribute\Action\Listable;
-use Tourze\EasyAdmin\Attribute\Column\BoolColumn;
 use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Field\FormField;
-use Tourze\EasyAdmin\Attribute\Filter\Filterable;
-use Tourze\EasyAdmin\Attribute\Permission\AsPermission;
 
-#[AsPermission(title: '快递账号')]
 #[Listable]
-#[Deletable]
-#[Editable]
-#[Creatable]
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 #[ORM\Table(name: 'kuaidi100_account', options: ['comment' => '快递账号'])]
 class Account implements \Stringable, Arrayable, AdminArrayInterface
 {
     use TimestampableAware;
-    #[Filterable]
     #[IndexColumn]
-    #[ListColumn(order: 98, sorter: true)]
-    #[ExportColumn]
     #[CreateTimeColumn]
     #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '创建时间'])]#[UpdateTimeColumn]
-    #[ListColumn(order: 99, sorter: true)]
     #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
-    #[Filterable]
-    #[ExportColumn]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '更新时间'])]#[ExportColumn]
-    #[ListColumn(order: -1, sorter: true)]
     #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -67,40 +48,29 @@ class Account implements \Stringable, Arrayable, AdminArrayInterface
     #[ORM\Column(nullable: true, options: ['comment' => '更新人'])]
     private ?string $updatedBy = null;
 
-    #[BoolColumn]
     #[IndexColumn]
     #[TrackColumn]
     #[Groups(['admin_curd', 'restful_read', 'restful_read', 'restful_write'])]
     #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['comment' => '有效', 'default' => 0])]
-    #[ListColumn(order: 97)]
-    #[FormField(order: 97)]
     private ?bool $valid = false;
 
     #[Groups(['admin_curd'])]
     #[TrackColumn]
-    #[FormField]
-    #[ListColumn]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, options: ['comment' => 'customer'])]
     private ?string $customer = null;
 
     #[Groups(['admin_curd'])]
     #[TrackColumn]
-    #[FormField]
-    #[ListColumn]
     #[ORM\Column(type: Types::STRING, length: 100, options: ['comment' => 'userid'])]
     private ?string $userid = null;
 
     #[Groups(['admin_curd'])]
     #[TrackColumn]
-    #[FormField]
-    #[ListColumn]
     #[ORM\Column(type: Types::STRING, length: 120, options: ['comment' => 'secret'])]
     private ?string $secret = null;
 
     #[Groups(['admin_curd'])]
     #[TrackColumn]
-    #[FormField]
-    #[ListColumn]
     #[ORM\Column(type: Types::STRING, length: 120, options: ['comment' => '授权key'])]
     private ?string $signKey = null;
 

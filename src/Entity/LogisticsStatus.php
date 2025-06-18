@@ -13,30 +13,19 @@ use Tourze\DoctrineTimestampBundle\Attribute\CreateTimeColumn;
 use Tourze\DoctrineTimestampBundle\Attribute\UpdateTimeColumn;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Filter\Filterable;
-use Tourze\EasyAdmin\Attribute\Permission\AsPermission;
 
-#[AsPermission(title: '物流详情')]
 #[ORM\Entity(repositoryClass: LogisticsStatusRepository::class)]
 #[ORM\Table(name: 'kuaidi100_logistics_status', options: ['comment' => '物流详情表'])]
 #[ORM\UniqueConstraint(name: 'kuaidi100_logistics_status_uniq', columns: ['sn', 'flag'])]
 class LogisticsStatus
 {
     use TimestampableAware;
-    #[Filterable]
     #[IndexColumn]
-    #[ListColumn(order: 98, sorter: true)]
-    #[ExportColumn]
     #[CreateTimeColumn]
     #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '创建时间'])]#[UpdateTimeColumn]
-    #[ListColumn(order: 99, sorter: true)]
     #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
-    #[Filterable]
-    #[ExportColumn]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '更新时间'])]#[ExportColumn]
-    #[ListColumn(order: -1, sorter: true)]
     #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -44,27 +33,21 @@ class LogisticsStatus
     #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
     private ?string $id = null;
 
-    #[Filterable]
-    #[ListColumn]
     #[ORM\Column(options: ['comment' => '快递单号'])]
     private ?string $sn = null;
 
-    #[ListColumn]
     #[ORM\Column(options: ['comment' => '物流公司编码'])]
     private ?string $companyCode = null;
 
     #[Groups(['restful_read', 'admin_curd'])]
-    #[ListColumn]
     #[ORM\Column(length: 255, options: ['comment' => '内容'])]
     private ?string $context = null;
 
     #[Groups(['restful_read', 'admin_curd'])]
-    #[ListColumn]
     #[ORM\Column(length: 100, options: ['comment' => '到达时间'])]
     private ?string $ftime = null;
 
     #[Groups(['restful_read', 'admin_curd'])]
-    #[ListColumn]
     #[ORM\Column(length: 255, nullable: true, options: ['comment' => '当前所在行政区域经纬度'])]
     private ?string $areaCenter = null;
 
@@ -72,7 +55,6 @@ class LogisticsStatus
     #[ORM\Column(length: 255, options: ['comment' => '唯一标识'])]
     private ?string $flag = null;
 
-    #[ListColumn]
     #[ORM\Column(type: Types::STRING, length: 32, nullable: true, enumType: LogisticsStateEnum::class, options: ['comment' => '标识'])]
     private ?LogisticsStateEnum $state = null;
 

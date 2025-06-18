@@ -73,8 +73,6 @@ class Kuaidi100ServiceTest extends TestCase
         $method->setAccessible(true);
         
         $options = $method->invoke($this->service, $request);
-        
-        $this->assertIsArray($options);
         $this->assertArrayHasKey('body', $options);
         $this->assertArrayHasKey('headers', $options);
         
@@ -107,7 +105,6 @@ class Kuaidi100ServiceTest extends TestCase
         $options = $method->invoke($this->service, $signRequest);
         
         // 验证选项
-        $this->assertIsArray($options);
         $this->assertArrayHasKey('body', $options);
         $this->assertEquals(['test' => 'value', 'sign' => 'test_sign'], $options['body']);
     }
@@ -126,8 +123,6 @@ class Kuaidi100ServiceTest extends TestCase
         $method->setAccessible(true);
         
         $result = $method->invoke($this->service, $request, $response);
-        
-        $this->assertIsArray($result);
         $this->assertEquals('200', $result['returnCode']);
         $this->assertArrayHasKey('data', $result);
     }
