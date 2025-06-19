@@ -2,7 +2,6 @@
 
 namespace Kuaidi100QueryBundle\Command;
 
-use Carbon\Carbon;
 use Kuaidi100QueryBundle\Repository\LogisticsNumRepository;
 use Kuaidi100QueryBundle\Service\LogisticsService;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -13,9 +12,10 @@ use Tourze\LockCommandBundle\Command\LockableCommand;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 
 #[AsCronTask('* * * * *')]
-#[AsCommand(name: 'kuaidi100:query-number', description: '查询实时快递状态')]
+#[AsCommand(name: self::NAME, description: '查询实时快递状态')]
 class QueryNumberCommand extends LockableCommand
 {
+    public const NAME = 'kuaidi100:query-number';
     public function __construct(
         private readonly LogisticsNumRepository $numberRepository,
         private readonly LogisticsService $logisticsService,
@@ -25,7 +25,7 @@ class QueryNumberCommand extends LockableCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        foreach ($this->numberRepository->findNeedSyncList(Carbon::now()) as $item) {
+        foreach ($this->numberRepository->findNeedSyncList(new \DateTimeImmutable()) as $item) {
             $this->logisticsService->queryAndSync($item);
         }
 

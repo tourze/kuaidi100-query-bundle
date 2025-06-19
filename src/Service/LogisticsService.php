@@ -2,7 +2,6 @@
 
 namespace Kuaidi100QueryBundle\Service;
 
-use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Kuaidi100QueryBundle\Entity\LogisticsNum;
 use Kuaidi100QueryBundle\Entity\LogisticsStatus;
@@ -42,7 +41,7 @@ class LogisticsService
         $this->syncStatusToDb($number, $res);
 
         // 保存同步时间
-        $number->setSyncTime(Carbon::now());
+        $number->setSyncTime(new \DateTimeImmutable());
         $this->entityManager->persist($number);
         $this->entityManager->flush();
     }

@@ -10,14 +10,12 @@ use Kuaidi100QueryBundle\Repository\LogisticsNumRepository;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
 
 #[ORM\Entity(repositoryClass: LogisticsNumRepository::class)]
 #[ORM\Table(name: 'kuaidi100_logistics_num', options: ['comment' => '物流单号'])]
-class LogisticsNum
+class LogisticsNum implements \Stringable
 {
     use TimestampableAware;
-    #[ExportColumn]
     #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -43,8 +41,8 @@ class LogisticsNum
     #[ORM\Column(length: 255, nullable: true, options: ['comment' => '最近动态'])]
     private ?string $latestStatus = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '上次同步时间'])]
-    private ?\DateTimeInterface $syncTime = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true, options: ['comment' => '上次同步时间'])]
+    private ?\DateTimeImmutable $syncTime = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '是否订阅推送'])]
     private ?bool $subscribed = null;
@@ -141,12 +139,12 @@ class LogisticsNum
         return $this;
     }
 
-    public function getSyncTime(): ?\DateTimeInterface
+    public function getSyncTime(): ?\DateTimeImmutable
     {
         return $this->syncTime;
     }
 
-    public function setSyncTime(?\DateTimeInterface $syncTime): static
+    public function setSyncTime(?\DateTimeImmutable $syncTime): static
     {
         $this->syncTime = $syncTime;
 
@@ -205,5 +203,10 @@ class LogisticsNum
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->number ?? $this->id ?? '';
     }
 }

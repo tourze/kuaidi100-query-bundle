@@ -51,8 +51,8 @@ class Kuaidi100Service extends ApiClient
         $errorCode = ArrayHelper::getValue($json, 'returnCode');
         $message = ArrayHelper::getValue($json, 'message');
         $returnMsg = ArrayHelper::getValue($json, 'message');
-        if ($errorCode && '200' !== $errorCode) {
-            if ($message) {
+        if (!empty($errorCode) && '200' !== $errorCode) {
+            if (!empty($message)) {
                 throw new HttpClientException($request, $response, $message);
             }
 

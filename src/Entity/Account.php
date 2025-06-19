@@ -12,18 +12,14 @@ use Tourze\DoctrineIndexedBundle\Attribute\IndexColumn;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
-use Tourze\DoctrineUserBundle\Attribute\CreatedByColumn;
-use Tourze\DoctrineUserBundle\Attribute\UpdatedByColumn;
-use Tourze\EasyAdmin\Attribute\Action\Listable;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
+use Tourze\DoctrineUserBundle\Traits\BlameableAware;
 
-#[Listable]
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 #[ORM\Table(name: 'kuaidi100_account', options: ['comment' => '快递账号'])]
 class Account implements \Stringable, Arrayable, AdminArrayInterface
 {
     use TimestampableAware;
-    #[ExportColumn]
+    use BlameableAware;
     #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -31,15 +27,6 @@ class Account implements \Stringable, Arrayable, AdminArrayInterface
     #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
     private ?string $id = null;
 
-    #[CreatedByColumn]
-    #[Groups(['restful_read'])]
-    #[ORM\Column(nullable: true, options: ['comment' => '创建人'])]
-    private ?string $createdBy = null;
-
-    #[UpdatedByColumn]
-    #[Groups(['restful_read'])]
-    #[ORM\Column(nullable: true, options: ['comment' => '更新人'])]
-    private ?string $updatedBy = null;
 
     #[IndexColumn]
     #[TrackColumn]
@@ -81,29 +68,6 @@ class Account implements \Stringable, Arrayable, AdminArrayInterface
         return $this->id;
     }
 
-    public function setCreatedBy(?string $createdBy): self
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    public function getCreatedBy(): ?string
-    {
-        return $this->createdBy;
-    }
-
-    public function setUpdatedBy(?string $updatedBy): self
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedBy(): ?string
-    {
-        return $this->updatedBy;
-    }
 
     public function isValid(): ?bool
     {

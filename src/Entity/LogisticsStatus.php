@@ -9,15 +9,13 @@ use Kuaidi100QueryBundle\Repository\LogisticsStatusRepository;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
 
 #[ORM\Entity(repositoryClass: LogisticsStatusRepository::class)]
 #[ORM\Table(name: 'kuaidi100_logistics_status', options: ['comment' => '物流详情表'])]
 #[ORM\UniqueConstraint(name: 'kuaidi100_logistics_status_uniq', columns: ['sn', 'flag'])]
-class LogisticsStatus
+class LogisticsStatus implements \Stringable
 {
     use TimestampableAware;
-    #[ExportColumn]
     #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -145,5 +143,10 @@ class LogisticsStatus
         $this->number = $number;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->context ?? $this->sn ?? $this->id ?? '';
     }
 }

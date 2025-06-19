@@ -10,9 +10,7 @@ use Tourze\Arrayable\AdminArrayInterface;
 use Tourze\Arrayable\ApiArrayInterface;
 use Tourze\Arrayable\Arrayable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Action\Listable;
 
-#[Listable]
 #[ORM\Entity(repositoryClass: KuaidiCompanyRepository::class)]
 #[ORM\Table(name: 'kuaidi100_company', options: ['comment' => '快递公司编码'])]
 class KuaidiCompany implements \Stringable, Arrayable, ApiArrayInterface, AdminArrayInterface

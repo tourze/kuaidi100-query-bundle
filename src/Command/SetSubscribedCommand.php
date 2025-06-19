@@ -12,9 +12,10 @@ use Tourze\LockCommandBundle\Command\LockableCommand;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 
 #[AsCronTask('* * * * *')]
-#[AsCommand(name: 'kuaidi100:set-subscribed', description: '设置订阅状态')]
+#[AsCommand(name: self::NAME, description: '设置订阅状态')]
 class SetSubscribedCommand extends LockableCommand
 {
+    public const NAME = 'kuaidi100:set-subscribed';
     public function __construct(
         private readonly LogisticsNumRepository $numberRepository,
         private readonly LogisticsService $logisticsService,
