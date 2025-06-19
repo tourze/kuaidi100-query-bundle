@@ -39,7 +39,7 @@ class LogisticsNumTest extends TestCase
     public function testTimestampFields(): void
     {
         // 测试创建时间和更新时间字段
-        $now = new \DateTime();
+        $now = new \DateTimeImmutable();
         
         $this->logisticsNum->setCreateTime($now);
         $this->logisticsNum->setUpdateTime($now);

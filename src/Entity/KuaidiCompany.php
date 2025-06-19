@@ -9,9 +9,6 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Tourze\Arrayable\AdminArrayInterface;
 use Tourze\Arrayable\ApiArrayInterface;
 use Tourze\Arrayable\Arrayable;
-use Tourze\DoctrineIndexedBundle\Attribute\IndexColumn;
-use Tourze\DoctrineTimestampBundle\Attribute\CreateTimeColumn;
-use Tourze\DoctrineTimestampBundle\Attribute\UpdateTimeColumn;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\EasyAdmin\Attribute\Action\Listable;
 
@@ -31,12 +28,7 @@ class KuaidiCompany implements \Stringable, Arrayable, ApiArrayInterface, AdminA
     {
         return $this->id;
     }
-    #[IndexColumn]
-    #[CreateTimeColumn]
-    #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '创建时间'])]#[UpdateTimeColumn]
-    #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '更新时间'])]#[Groups(['admin_curd'])]
+    #[Groups(['admin_curd'])]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, options: ['comment' => '名称'])]
     private ?string $name = null;
 

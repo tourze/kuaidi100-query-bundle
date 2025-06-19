@@ -45,7 +45,7 @@ class AccountTest extends TestCase
     public function testTimestampFields(): void
     {
         // 测试创建时间和更新时间字段
-        $now = new \DateTime();
+        $now = new \DateTimeImmutable();
         
         $this->account->setCreateTime($now);
         $this->account->setUpdateTime($now);
@@ -96,7 +96,7 @@ class AccountTest extends TestCase
     public function testRetrieveAdminArray(): void
     {
         // 测试retrieveAdminArray方法
-        $now = new \DateTime('2023-01-01 12:00:00');
+        $now = new \DateTimeImmutable('2023-01-01 12:00:00');
         $this->account->setCreateTime($now);
         $this->account->setUpdateTime($now);
         

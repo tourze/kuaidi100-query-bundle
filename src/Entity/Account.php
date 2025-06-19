@@ -10,8 +10,6 @@ use Tourze\Arrayable\AdminArrayInterface;
 use Tourze\Arrayable\Arrayable;
 use Tourze\DoctrineIndexedBundle\Attribute\IndexColumn;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
-use Tourze\DoctrineTimestampBundle\Attribute\CreateTimeColumn;
-use Tourze\DoctrineTimestampBundle\Attribute\UpdateTimeColumn;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
 use Tourze\DoctrineUserBundle\Attribute\CreatedByColumn;
@@ -25,12 +23,7 @@ use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
 class Account implements \Stringable, Arrayable, AdminArrayInterface
 {
     use TimestampableAware;
-    #[IndexColumn]
-    #[CreateTimeColumn]
-    #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '创建时间'])]#[UpdateTimeColumn]
-    #[Groups(['restful_read', 'admin_curd', 'restful_read'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '更新时间'])]#[ExportColumn]
+    #[ExportColumn]
     #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
