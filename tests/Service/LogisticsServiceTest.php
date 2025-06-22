@@ -69,7 +69,7 @@ class LogisticsServiceTest extends TestCase
         // 验证API请求构建
         $this->apiService->expects($this->once())
             ->method('request')
-            ->willReturnCallback(function ($request) use ($account) {
+            ->willReturnCallback(function ($request) {
                 $this->assertInstanceOf(Kuaidi100QueryRequest::class, $request);
                 $this->assertEquals('test_code', $request->getCom());
                 $this->assertEquals('123456789', $request->getNum());
@@ -187,7 +187,7 @@ class LogisticsServiceTest extends TestCase
         // 验证API订阅请求构建
         $this->apiService->expects($this->once())
             ->method('request')
-            ->willReturnCallback(function ($request) use ($account) {
+            ->willReturnCallback(function ($request) {
                 $this->assertInstanceOf(PollRequest::class, $request);
                 $this->assertEquals('test_company', $request->getCom());
                 $this->assertEquals('123456789', $request->getNum());

@@ -12,8 +12,6 @@ use Kuaidi100QueryBundle\Entity\Account;
  */
 class Kuaidi100Resolution extends ApiRequest implements CacheRequest, SignRequest
 {
-    private array $param = [];
-
     private string $t;
 
     private string $content = '';
@@ -96,13 +94,13 @@ class Kuaidi100Resolution extends ApiRequest implements CacheRequest, SignReques
     public function getParam(): array
     {
         $res = [];
-        if ($this->getContent()) {
+        if ($this->getContent() !== '') {
             $res['content'] = $this->getContent();
         }
-        if ($this->getImageUrl()) {
+        if ($this->getImageUrl() !== '') {
             $res['imageUrl'] = $this->getImageUrl();
         }
-        if ($this->getPdfUrl()) {
+        if ($this->getPdfUrl() !== '') {
             $res['pdfUrl'] = $this->getPdfUrl();
         }
 

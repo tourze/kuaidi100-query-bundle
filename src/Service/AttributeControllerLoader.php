@@ -2,7 +2,11 @@
 
 namespace Kuaidi100QueryBundle\Service;
 
-use Kuaidi100QueryBundle\Controller\QueryController;
+use Kuaidi100QueryBundle\Controller\AddressResolutionAction;
+use Kuaidi100QueryBundle\Controller\AutoNumberAction;
+use Kuaidi100QueryBundle\Controller\PollAction;
+use Kuaidi100QueryBundle\Controller\QueryAction;
+use Kuaidi100QueryBundle\Controller\SyncLogisticsAction;
 use Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -33,7 +37,11 @@ class AttributeControllerLoader extends Loader implements RoutingAutoLoaderInter
     public function autoload(): RouteCollection
     {
         $collection = new RouteCollection();
-        $collection->addCollection($this->controllerLoader->load(QueryController::class));
+        $collection->addCollection($this->controllerLoader->load(QueryAction::class));
+        $collection->addCollection($this->controllerLoader->load(SyncLogisticsAction::class));
+        $collection->addCollection($this->controllerLoader->load(PollAction::class));
+        $collection->addCollection($this->controllerLoader->load(AddressResolutionAction::class));
+        $collection->addCollection($this->controllerLoader->load(AutoNumberAction::class));
         return $collection;
     }
 }

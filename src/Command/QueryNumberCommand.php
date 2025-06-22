@@ -2,6 +2,7 @@
 
 namespace Kuaidi100QueryBundle\Command;
 
+use Carbon\CarbonImmutable;
 use Kuaidi100QueryBundle\Repository\LogisticsNumRepository;
 use Kuaidi100QueryBundle\Service\LogisticsService;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -25,7 +26,7 @@ class QueryNumberCommand extends LockableCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        foreach ($this->numberRepository->findNeedSyncList(new \DateTimeImmutable()) as $item) {
+        foreach ($this->numberRepository->findNeedSyncList(CarbonImmutable::now()) as $item) {
             $this->logisticsService->queryAndSync($item);
         }
 

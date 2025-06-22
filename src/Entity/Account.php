@@ -56,7 +56,7 @@ class Account implements \Stringable, Arrayable, AdminArrayInterface
 
     public function __toString(): string
     {
-        if (!$this->getId()) {
+        if ($this->getId() === null) {
             return '';
         }
 

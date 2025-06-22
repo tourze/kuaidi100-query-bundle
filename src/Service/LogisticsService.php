@@ -28,7 +28,7 @@ class LogisticsService
         $com = $this->companyRepository->findOneBy([
             'name' => $number->getCompany(),
         ]);
-        if (!$com) {
+        if ($com === null) {
             throw new \RuntimeException('找不到物流公司');
         }
 
@@ -54,7 +54,7 @@ class LogisticsService
                 'sn' => $param['nu'],
                 'flag' => md5($item['context']),
             ]);
-            if ($logistics) {
+            if ($logistics !== null) {
                 continue;
             }
 

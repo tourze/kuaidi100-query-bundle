@@ -12,8 +12,6 @@ use HttpClientBundle\Request\CacheRequest;
  */
 class Kuaidi100QueryRequest extends BaseRequest implements CacheRequest, SignRequest
 {
-    private array $param = [];
-
     private string $com;
 
     private string $num;

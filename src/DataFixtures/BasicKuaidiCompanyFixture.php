@@ -22,7 +22,7 @@ class BasicKuaidiCompanyFixture extends Fixture
             $company = $this->companyRepository->findOneBy([
                 'code' => $value,
             ]);
-            if ($company) {
+            if ($company !== null) {
                 continue;
             }
 
