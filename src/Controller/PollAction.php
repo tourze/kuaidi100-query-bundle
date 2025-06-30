@@ -2,6 +2,7 @@
 
 namespace Kuaidi100QueryBundle\Controller;
 
+use Kuaidi100QueryBundle\Exception\AccountNotFoundException;
 use Kuaidi100QueryBundle\Repository\AccountRepository;
 use Kuaidi100QueryBundle\Repository\KuaidiCompanyRepository;
 use Kuaidi100QueryBundle\Request\PollRequest;
@@ -37,7 +38,7 @@ class PollAction extends AbstractController
             'valid' => true,
         ]);
         if (empty($account)) {
-            throw new \Exception('加密失败');
+            throw new AccountNotFoundException();
         }
         $poll = new PollRequest();
         $poll->setAccount($account);

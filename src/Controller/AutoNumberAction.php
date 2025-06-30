@@ -2,6 +2,7 @@
 
 namespace Kuaidi100QueryBundle\Controller;
 
+use Kuaidi100QueryBundle\Exception\AccountNotFoundException;
 use Kuaidi100QueryBundle\Repository\AccountRepository;
 use Kuaidi100QueryBundle\Request\Kuaidi100AutoNumber;
 use Kuaidi100QueryBundle\Service\Kuaidi100Service;
@@ -29,7 +30,7 @@ class AutoNumberAction extends AbstractController
             'valid' => true,
         ]);
         if (empty($account)) {
-            throw new \Exception('加密失败');
+            throw new AccountNotFoundException();
         }
         $auto->setKey($account->getSignKey());
 

@@ -4,6 +4,7 @@ namespace Kuaidi100QueryBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Kuaidi100QueryBundle\Entity\LogisticsNum;
+use Kuaidi100QueryBundle\Exception\AccountNotFoundException;
 use Kuaidi100QueryBundle\Repository\AccountRepository;
 use Kuaidi100QueryBundle\Repository\KuaidiCompanyRepository;
 use Kuaidi100QueryBundle\Repository\LogisticsNumRepository;
@@ -42,7 +43,7 @@ class QueryAction extends AbstractController
             'valid' => true,
         ]);
         if (empty($account)) {
-            throw new \Exception('加密失败');
+            throw new AccountNotFoundException();
         }
         $apiRequest = new Kuaidi100QueryRequest();
         $apiRequest->setAccount($account);

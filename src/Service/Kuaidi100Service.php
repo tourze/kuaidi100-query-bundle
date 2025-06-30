@@ -56,7 +56,7 @@ class Kuaidi100Service extends ApiClient
                 throw new HttpClientException($request, $response, $message);
             }
 
-            throw new HttpClientException($request, $response, $returnMsg ?: '未知错误');
+            throw new HttpClientException($request, $response, $returnMsg ?? '未知错误');
         }
 
         if (empty($json)) {

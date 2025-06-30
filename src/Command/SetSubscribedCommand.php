@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Tourze\LockCommandBundle\Command\LockableCommand;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 
-#[AsCronTask('* * * * *')]
+#[AsCronTask(expression: '* * * * *')]
 #[AsCommand(name: self::NAME, description: '设置订阅状态')]
 class SetSubscribedCommand extends LockableCommand
 {

@@ -16,7 +16,7 @@ use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 class KuaidiCompany implements \Stringable, Arrayable, ApiArrayInterface, AdminArrayInterface
 {
     use TimestampableAware;
-    #[Groups(['restful_read', 'api_tree', 'admin_curd', 'api_list'])]
+    #[Groups(groups: ['restful_read', 'api_tree', 'admin_curd', 'api_list'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -26,15 +26,15 @@ class KuaidiCompany implements \Stringable, Arrayable, ApiArrayInterface, AdminA
     {
         return $this->id;
     }
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, options: ['comment' => '名称'])]
     private ?string $name = null;
 
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, options: ['comment' => '编码'])]
     private ?string $code = null;
 
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[ORM\Column(type: Types::STRING, length: 120, nullable: true, options: ['comment' => 'remark'])]
     private ?string $remark = null;
 

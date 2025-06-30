@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Kuaidi100QueryBundle\Entity\LogisticsNum;
 use Kuaidi100QueryBundle\Entity\LogisticsStatus;
 use Kuaidi100QueryBundle\Enum\LogisticsStateEnum;
+use Kuaidi100QueryBundle\Exception\LogisticsCompanyNotFoundException;
 use Kuaidi100QueryBundle\Repository\KuaidiCompanyRepository;
 use Kuaidi100QueryBundle\Repository\LogisticsStatusRepository;
 use Kuaidi100QueryBundle\Request\Kuaidi100QueryRequest;
@@ -29,7 +30,7 @@ class LogisticsService
             'name' => $number->getCompany(),
         ]);
         if ($com === null) {
-            throw new \RuntimeException('找不到物流公司');
+            throw new LogisticsCompanyNotFoundException();
         }
 
         $apiRequest = new Kuaidi100QueryRequest();

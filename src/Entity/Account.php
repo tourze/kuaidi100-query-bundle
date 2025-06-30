@@ -10,6 +10,7 @@ use Tourze\Arrayable\AdminArrayInterface;
 use Tourze\Arrayable\Arrayable;
 use Tourze\DoctrineIndexedBundle\Attribute\IndexColumn;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
 use Tourze\DoctrineUserBundle\Traits\BlameableAware;
@@ -20,36 +21,31 @@ class Account implements \Stringable, Arrayable, AdminArrayInterface
 {
     use TimestampableAware;
     use BlameableAware;
-    #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
-    #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
-    private ?string $id = null;
+    use SnowflakeKeyAware;
 
 
     #[IndexColumn]
     #[TrackColumn]
-    #[Groups(['admin_curd', 'restful_read', 'restful_read', 'restful_write'])]
+    #[Groups(groups: ['admin_curd', 'restful_read', 'restful_read', 'restful_write'])]
     #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['comment' => '有效', 'default' => 0])]
     private ?bool $valid = false;
 
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[TrackColumn]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, options: ['comment' => 'customer'])]
     private ?string $customer = null;
 
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[TrackColumn]
     #[ORM\Column(type: Types::STRING, length: 100, options: ['comment' => 'userid'])]
     private ?string $userid = null;
 
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[TrackColumn]
     #[ORM\Column(type: Types::STRING, length: 120, options: ['comment' => 'secret'])]
     private ?string $secret = null;
 
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     #[TrackColumn]
     #[ORM\Column(type: Types::STRING, length: 120, options: ['comment' => '授权key'])]
     private ?string $signKey = null;
@@ -63,10 +59,6 @@ class Account implements \Stringable, Arrayable, AdminArrayInterface
         return "{$this->getCustomer()}({$this->getUserid()})";
     }
 
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
 
     public function isValid(): ?bool

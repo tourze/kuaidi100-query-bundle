@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Kuaidi100QueryBundle\Repository\LogisticsNumRepository;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 
 #[ORM\Entity(repositoryClass: LogisticsNumRepository::class)]
@@ -16,12 +17,7 @@ use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 class LogisticsNum implements \Stringable
 {
     use TimestampableAware;
-    #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
-    #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
-    private ?string $id = null;
+    use SnowflakeKeyAware;
 
     #[ORM\Column(length: 20, options: ['comment' => '快递公司编码'])]
     private ?string $company = null;
@@ -62,10 +58,6 @@ class LogisticsNum implements \Stringable
         $this->statusList = new ArrayCollection();
     }
 
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     public function getCompany(): ?string
     {

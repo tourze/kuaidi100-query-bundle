@@ -8,6 +8,7 @@ use Kuaidi100QueryBundle\Enum\LogisticsStateEnum;
 use Kuaidi100QueryBundle\Repository\LogisticsStatusRepository;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 
 #[ORM\Entity(repositoryClass: LogisticsStatusRepository::class)]
@@ -16,12 +17,7 @@ use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 class LogisticsStatus implements \Stringable
 {
     use TimestampableAware;
-    #[Groups(['restful_read', 'admin_curd', 'recursive_view', 'api_tree'])]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
-    #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
-    private ?string $id = null;
+    use SnowflakeKeyAware;
 
     #[ORM\Column(options: ['comment' => '快递单号'])]
     private ?string $sn = null;
@@ -29,19 +25,19 @@ class LogisticsStatus implements \Stringable
     #[ORM\Column(options: ['comment' => '物流公司编码'])]
     private ?string $companyCode = null;
 
-    #[Groups(['restful_read', 'admin_curd'])]
+    #[Groups(groups: ['restful_read', 'admin_curd'])]
     #[ORM\Column(length: 255, options: ['comment' => '内容'])]
     private ?string $context = null;
 
-    #[Groups(['restful_read', 'admin_curd'])]
+    #[Groups(groups: ['restful_read', 'admin_curd'])]
     #[ORM\Column(length: 100, options: ['comment' => '到达时间'])]
     private ?string $ftime = null;
 
-    #[Groups(['restful_read', 'admin_curd'])]
+    #[Groups(groups: ['restful_read', 'admin_curd'])]
     #[ORM\Column(length: 255, nullable: true, options: ['comment' => '当前所在行政区域经纬度'])]
     private ?string $areaCenter = null;
 
-    #[Groups(['restful_read', 'admin_curd'])]
+    #[Groups(groups: ['restful_read', 'admin_curd'])]
     #[ORM\Column(length: 255, options: ['comment' => '唯一标识'])]
     private ?string $flag = null;
 
@@ -52,10 +48,6 @@ class LogisticsStatus implements \Stringable
     #[ORM\JoinColumn(nullable: false)]
     private ?LogisticsNum $number = null;
 
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     public function getState(): ?LogisticsStateEnum
     {

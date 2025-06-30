@@ -113,7 +113,7 @@ class LogisticsServiceTest extends TestCase
         
         // 期望抛出异常
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('找不到物流公司');
+        $this->expectExceptionMessage('找不到指定的物流公司');
         
         // 执行测试方法
         $this->service->queryAndSync($number);

@@ -3,35 +3,21 @@
 namespace Kuaidi100QueryBundle\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Kuaidi100QueryBundle\Entity\KuaidiCompany;
-use Kuaidi100QueryBundle\Repository\KuaidiCompanyRepository;
 
 class BasicKuaidiCompanyFixture extends Fixture
 {
-    public function __construct(
-        private readonly KuaidiCompanyRepository $companyRepository,
-        private readonly EntityManagerInterface $entityManager,
-    ) {
-    }
 
     public function load(ObjectManager $manager): void
     {
         foreach ($this->kuaidiCompany() as $key => $value) {
-            $company = $this->companyRepository->findOneBy([
-                'code' => $value,
-            ]);
-            if ($company !== null) {
-                continue;
-            }
-
             $company = new KuaidiCompany();
             $company->setName($key);
             $company->setCode($value);
-            $this->entityManager->persist($company);
-            $this->entityManager->flush();
+            $manager->persist($company);
         }
+        $manager->flush();
     }
 
     private function kuaidiCompany(): array
