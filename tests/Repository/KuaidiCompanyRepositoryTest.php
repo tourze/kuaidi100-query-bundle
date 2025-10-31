@@ -2,27 +2,47 @@
 
 namespace Kuaidi100QueryBundle\Tests\Repository;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Kuaidi100QueryBundle\Entity\KuaidiCompany;
 use Kuaidi100QueryBundle\Repository\KuaidiCompanyRepository;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractRepositoryTestCase;
 
 /**
  * 测试KuaidiCompanyRepository的基本功能
+ *
+ * @internal
  */
-class KuaidiCompanyRepositoryTest extends TestCase
+#[CoversClass(KuaidiCompanyRepository::class)]
+#[RunTestsInSeparateProcesses]
+final class KuaidiCompanyRepositoryTest extends AbstractRepositoryTestCase
 {
-    public function testRepositoryCanBeInstantiated(): void
+    protected function onSetUp(): void
     {
-        // 由于Repository需要EntityManager等复杂依赖，
-        // 这里仅测试类的存在性
-        $this->assertTrue(class_exists(KuaidiCompanyRepository::class));
     }
-    
-    public function testRepositoryExtendsServiceEntityRepository(): void
+
+    protected function createNewEntity(): object
     {
-        $reflection = new \ReflectionClass(KuaidiCompanyRepository::class);
-        $parentClass = $reflection->getParentClass();
-        
-        $this->assertNotFalse($parentClass);
-        $this->assertEquals('Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository', $parentClass->getName());
+        $company = new KuaidiCompany();
+        $company->setName('test_company_' . uniqid());
+        $company->setCode('test_code_' . uniqid());
+
+        return $company;
     }
-} 
+
+    /**
+     * @return KuaidiCompanyRepository
+     */
+    protected function getRepository(): ServiceEntityRepository
+    {
+        return self::getService(KuaidiCompanyRepository::class);
+    }
+
+    public function testRepositoryImplementation(): void
+    {
+        $repository = self::getService(KuaidiCompanyRepository::class);
+        $this->assertInstanceOf(KuaidiCompanyRepository::class, $repository);
+        $this->assertInstanceOf(ServiceEntityRepository::class, $repository);
+    }
+}

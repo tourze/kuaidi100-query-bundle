@@ -2,27 +2,50 @@
 
 namespace Kuaidi100QueryBundle\Tests\Repository;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Kuaidi100QueryBundle\Entity\Account;
 use Kuaidi100QueryBundle\Repository\AccountRepository;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractRepositoryTestCase;
 
 /**
  * 测试AccountRepository的基本功能
+ *
+ * @internal
  */
-class AccountRepositoryTest extends TestCase
+#[CoversClass(AccountRepository::class)]
+#[RunTestsInSeparateProcesses]
+final class AccountRepositoryTest extends AbstractRepositoryTestCase
 {
-    public function testRepositoryCanBeInstantiated(): void
+    protected function onSetUp(): void
     {
-        // 由于Repository需要EntityManager等复杂依赖，
-        // 这里仅测试类的存在性
-        $this->assertTrue(class_exists(AccountRepository::class));
     }
-    
-    public function testRepositoryExtendsServiceEntityRepository(): void
+
+    protected function createNewEntity(): object
     {
-        $reflection = new \ReflectionClass(AccountRepository::class);
-        $parentClass = $reflection->getParentClass();
-        
-        $this->assertNotFalse($parentClass);
-        $this->assertEquals('Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository', $parentClass->getName());
+        $account = new Account();
+        $account->setCustomer('test_customer_' . uniqid());
+        $account->setUserid('test_userid_' . uniqid());
+        $account->setSecret('test_secret_' . uniqid());
+        $account->setSignKey('test_sign_key_' . uniqid());
+        $account->setValid(true);
+
+        return $account;
     }
-} 
+
+    /**
+     * @return AccountRepository
+     */
+    protected function getRepository(): ServiceEntityRepository
+    {
+        return self::getService(AccountRepository::class);
+    }
+
+    public function testRepositoryImplementation(): void
+    {
+        $repository = self::getService(AccountRepository::class);
+        $this->assertInstanceOf(AccountRepository::class, $repository);
+        $this->assertInstanceOf(ServiceEntityRepository::class, $repository);
+    }
+}

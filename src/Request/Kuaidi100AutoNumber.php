@@ -19,6 +19,9 @@ class Kuaidi100AutoNumber extends ApiRequest
         return 'https://poll.kuaidi100.com/autonumber/auto';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getRequestOptions(): ?array
     {
         return [

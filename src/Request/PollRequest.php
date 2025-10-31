@@ -22,6 +22,9 @@ class PollRequest extends BaseRequest
         return 'https://poll.kuaidi100.com/poll';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getRequestOptions(): ?array
     {
         return [

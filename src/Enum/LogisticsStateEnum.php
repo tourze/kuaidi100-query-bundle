@@ -2,6 +2,7 @@
 
 namespace Kuaidi100QueryBundle\Enum;
 
+use Tourze\EnumExtra\BadgeInterface;
 use Tourze\EnumExtra\Itemable;
 use Tourze\EnumExtra\ItemTrait;
 use Tourze\EnumExtra\Labelable;
@@ -14,7 +15,7 @@ use Tourze\EnumExtra\SelectTrait;
  *
  * @see https://api.kuaidi100.com/document/5f0ffb5ebc8da837cbd8aefc
  */
-enum LogisticsStateEnum: string implements Labelable, Itemable, Selectable
+enum LogisticsStateEnum: string implements Labelable, Itemable, Selectable, BadgeInterface
 {
     use ItemTrait;
     use SelectTrait;
@@ -34,5 +35,21 @@ enum LogisticsStateEnum: string implements Labelable, Itemable, Selectable
             self::SIGN => '签收',
             self::RETURN => '退回',
         };
+    }
+
+    public function getBadgeColor(): string
+    {
+        return match ($this) {
+            self::PICKUP => 'primary',
+            self::ONWAY => 'info',
+            self::DELIVER => 'warning',
+            self::SIGN => 'success',
+            self::RETURN => 'danger',
+        };
+    }
+
+    public function getBadge(): string
+    {
+        return $this->getLabel();
     }
 }

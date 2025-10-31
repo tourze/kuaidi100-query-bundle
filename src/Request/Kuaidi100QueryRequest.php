@@ -3,6 +3,7 @@
 namespace Kuaidi100QueryBundle\Request;
 
 use HttpClientBundle\Request\CacheRequest;
+use Kuaidi100QueryBundle\Exception\JsonEncodeException;
 
 /**
  * 实时快递查询
@@ -23,6 +24,9 @@ class Kuaidi100QueryRequest extends BaseRequest implements CacheRequest, SignReq
         return 'https://poll.kuaidi100.com/poll/query.do';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getRequestOptions(): ?array
     {
         return [
@@ -83,11 +87,17 @@ class Kuaidi100QueryRequest extends BaseRequest implements CacheRequest, SignReq
 
     public function getParam(): string
     {
-        return json_encode([
+        $result = json_encode([
             'com' => strtolower($this->getCom()),
             'num' => $this->getNum(),
             'phone' => $this->getPhone(),
             'resultv2' => '1',            // 开启行政区域解析
         ], JSON_UNESCAPED_UNICODE);
+
+        if (false === $result) {
+            throw new JsonEncodeException('快递查询参数JSON编码失败');
+        }
+
+        return $result;
     }
 }

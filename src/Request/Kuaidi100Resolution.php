@@ -27,6 +27,9 @@ class Kuaidi100Resolution extends ApiRequest implements CacheRequest, SignReques
         return 'https://api.kuaidi100.com/address/resolution';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getRequestOptions(): ?array
     {
         return [
@@ -78,12 +81,12 @@ class Kuaidi100Resolution extends ApiRequest implements CacheRequest, SignReques
 
     public function getCacheKey(): string
     {
-        return 'Kuaidi100Resolution_' . md5(json_encode($this->getRequestOptions()));
+        return ''; // 暂时禁用缓存
     }
 
     public function getCacheDuration(): int
     {
-        return 60 * 30;
+        return 0; // 暂时禁用缓存
     }
 
     public function getSing(): string
@@ -91,16 +94,19 @@ class Kuaidi100Resolution extends ApiRequest implements CacheRequest, SignReques
         return strtoupper(md5($this->getSingStr()));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getParam(): array
     {
         $res = [];
-        if ($this->getContent() !== '') {
+        if ('' !== $this->getContent()) {
             $res['content'] = $this->getContent();
         }
-        if ($this->getImageUrl() !== '') {
+        if ('' !== $this->getImageUrl()) {
             $res['imageUrl'] = $this->getImageUrl();
         }
-        if ($this->getPdfUrl() !== '') {
+        if ('' !== $this->getPdfUrl()) {
             $res['pdfUrl'] = $this->getPdfUrl();
         }
 

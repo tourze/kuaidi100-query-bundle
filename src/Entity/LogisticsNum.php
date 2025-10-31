@@ -7,8 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Kuaidi100QueryBundle\Repository\LogisticsNumRepository;
-use Symfony\Component\Serializer\Attribute\Groups;
-use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Symfony\Component\Validator\Constraints as Assert;
 use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 
@@ -19,27 +18,38 @@ class LogisticsNum implements \Stringable
     use TimestampableAware;
     use SnowflakeKeyAware;
 
+    #[Assert\NotBlank(message: 'company字段不能为空')]
+    #[Assert\Length(max: 20, maxMessage: 'company字段长度不能超过{{ limit }}个字符')]
     #[ORM\Column(length: 20, options: ['comment' => '快递公司编码'])]
     private ?string $company = null;
 
+    #[Assert\NotBlank(message: 'number字段不能为空')]
+    #[Assert\Length(max: 40, maxMessage: 'number字段长度不能超过{{ limit }}个字符')]
     #[ORM\Column(length: 40, unique: true, options: ['comment' => '快递单号'])]
     private ?string $number = null;
 
+    #[Assert\Length(max: 30, maxMessage: 'phoneNumber字段长度不能超过{{ limit }}个字符')]
+    #[Assert\Regex(pattern: '/^[\d\+\-\(\)\s]*$/', message: 'phoneNumber字段格式不正确')]
     #[ORM\Column(length: 30, nullable: true, options: ['comment' => '收、寄件人的电话号码'])]
-    private ?string $phone = null;
+    private ?string $phoneNumber = null;
 
+    #[Assert\Length(max: 120, maxMessage: 'fromCity字段长度不能超过{{ limit }}个字符')]
     #[ORM\Column(length: 120, nullable: true, options: ['comment' => '出发地城市'])]
     private ?string $fromCity = null;
 
+    #[Assert\Length(max: 120, maxMessage: 'toCity字段长度不能超过{{ limit }}个字符')]
     #[ORM\Column(length: 120, nullable: true, options: ['comment' => '目的地城市'])]
     private ?string $toCity = null;
 
+    #[Assert\Length(max: 255, maxMessage: 'latestStatus字段长度不能超过{{ limit }}个字符')]
     #[ORM\Column(length: 255, nullable: true, options: ['comment' => '最近动态'])]
     private ?string $latestStatus = null;
 
+    #[Assert\Type(type: '\DateTimeImmutable', message: 'syncTime字段必须是有效的日期时间')]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true, options: ['comment' => '上次同步时间'])]
     private ?\DateTimeImmutable $syncTime = null;
 
+    #[Assert\Type(type: 'bool', message: 'subscribed字段必须是布尔值')]
     #[ORM\Column(nullable: true, options: ['comment' => '是否订阅推送'])]
     private ?bool $subscribed = null;
 
@@ -58,17 +68,14 @@ class LogisticsNum implements \Stringable
         $this->statusList = new ArrayCollection();
     }
 
-
     public function getCompany(): ?string
     {
         return $this->company;
     }
 
-    public function setCompany(string $company): static
+    public function setCompany(?string $company): void
     {
         $this->company = $company;
-
-        return $this;
     }
 
     public function getNumber(): ?string
@@ -76,23 +83,19 @@ class LogisticsNum implements \Stringable
         return $this->number;
     }
 
-    public function setNumber(string $number): static
+    public function setNumber(?string $number): void
     {
         $this->number = $number;
-
-        return $this;
     }
 
-    public function getPhone(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phone;
+        return $this->phoneNumber;
     }
 
-    public function setPhone(?string $phone): static
+    public function setPhoneNumber(?string $phoneNumber): void
     {
-        $this->phone = $phone;
-
-        return $this;
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function getFromCity(): ?string
@@ -100,11 +103,9 @@ class LogisticsNum implements \Stringable
         return $this->fromCity;
     }
 
-    public function setFromCity(?string $fromCity): static
+    public function setFromCity(?string $fromCity): void
     {
         $this->fromCity = $fromCity;
-
-        return $this;
     }
 
     public function getToCity(): ?string
@@ -112,11 +113,9 @@ class LogisticsNum implements \Stringable
         return $this->toCity;
     }
 
-    public function setToCity(?string $toCity): static
+    public function setToCity(?string $toCity): void
     {
         $this->toCity = $toCity;
-
-        return $this;
     }
 
     public function getLatestStatus(): ?string
@@ -124,11 +123,9 @@ class LogisticsNum implements \Stringable
         return $this->latestStatus;
     }
 
-    public function setLatestStatus(?string $latestStatus): static
+    public function setLatestStatus(?string $latestStatus): void
     {
         $this->latestStatus = $latestStatus;
-
-        return $this;
     }
 
     public function getSyncTime(): ?\DateTimeImmutable
@@ -136,11 +133,9 @@ class LogisticsNum implements \Stringable
         return $this->syncTime;
     }
 
-    public function setSyncTime(?\DateTimeImmutable $syncTime): static
+    public function setSyncTime(?\DateTimeImmutable $syncTime): void
     {
         $this->syncTime = $syncTime;
-
-        return $this;
     }
 
     public function isSubscribed(): ?bool
@@ -148,11 +143,9 @@ class LogisticsNum implements \Stringable
         return $this->subscribed;
     }
 
-    public function setSubscribed(?bool $subscribed): static
+    public function setSubscribed(?bool $subscribed): void
     {
         $this->subscribed = $subscribed;
-
-        return $this;
     }
 
     public function getAccount(): ?Account
@@ -160,11 +153,9 @@ class LogisticsNum implements \Stringable
         return $this->account;
     }
 
-    public function setAccount(?Account $account): static
+    public function setAccount(?Account $account): void
     {
         $this->account = $account;
-
-        return $this;
     }
 
     /**

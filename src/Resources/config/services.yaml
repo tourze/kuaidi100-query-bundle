@@ -6,10 +6,9 @@ services:
 
   Kuaidi100QueryBundle\Command\:
     resource: '../../Command/'
+    public: true
   Kuaidi100QueryBundle\Controller\:
     resource: '../../Controller/'
-  Kuaidi100QueryBundle\DataFixtures\:
-    resource: '../../DataFixtures/'
   Kuaidi100QueryBundle\EventSubscriber\:
     resource: '../../EventSubscriber/'
   Kuaidi100QueryBundle\Repository\:

@@ -1,0 +1,26 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: true
+
+  Kuaidi100QueryBundle\Command\:
+    resource: '../../Command/'
+    public: true
+  Kuaidi100QueryBundle\Controller\:
+    resource: '../../Controller/'
+  Kuaidi100QueryBundle\EventSubscriber\:
+    resource: '../../EventSubscriber/'
+  Kuaidi100QueryBundle\Repository\:
+    resource: '../../Repository/'
+  Kuaidi100QueryBundle\Service\:
+    resource: '../../Service/'
+  Kuaidi100QueryBundle\DataFixtures\:
+    resource: '../../DataFixtures/'
+
+  # 显式配置路由加载器确保在测试环境中正确加载
+  Kuaidi100QueryBundle\Service\AttributeControllerLoader:
+    tags:
+      - { name: routing.loader }
+    public: true

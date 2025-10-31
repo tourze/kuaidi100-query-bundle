@@ -2,11 +2,11 @@
 
 namespace Kuaidi100QueryBundle\Service;
 
-use Kuaidi100QueryBundle\Controller\AddressResolutionAction;
-use Kuaidi100QueryBundle\Controller\AutoNumberAction;
-use Kuaidi100QueryBundle\Controller\PollAction;
-use Kuaidi100QueryBundle\Controller\QueryAction;
-use Kuaidi100QueryBundle\Controller\SyncLogisticsAction;
+use Kuaidi100QueryBundle\Controller\AddressResolutionController;
+use Kuaidi100QueryBundle\Controller\AutoNumberController;
+use Kuaidi100QueryBundle\Controller\PollController;
+use Kuaidi100QueryBundle\Controller\QueryController;
+use Kuaidi100QueryBundle\Controller\SyncLogisticsController;
 use Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -31,17 +31,18 @@ class AttributeControllerLoader extends Loader implements RoutingAutoLoaderInter
 
     public function supports(mixed $resource, ?string $type = null): bool
     {
-        return false;
+        return 'kuaidi100_controller' === $type;
     }
 
     public function autoload(): RouteCollection
     {
         $collection = new RouteCollection();
-        $collection->addCollection($this->controllerLoader->load(QueryAction::class));
-        $collection->addCollection($this->controllerLoader->load(SyncLogisticsAction::class));
-        $collection->addCollection($this->controllerLoader->load(PollAction::class));
-        $collection->addCollection($this->controllerLoader->load(AddressResolutionAction::class));
-        $collection->addCollection($this->controllerLoader->load(AutoNumberAction::class));
+        $collection->addCollection($this->controllerLoader->load(QueryController::class));
+        $collection->addCollection($this->controllerLoader->load(SyncLogisticsController::class));
+        $collection->addCollection($this->controllerLoader->load(PollController::class));
+        $collection->addCollection($this->controllerLoader->load(AddressResolutionController::class));
+        $collection->addCollection($this->controllerLoader->load(AutoNumberController::class));
+
         return $collection;
     }
 }

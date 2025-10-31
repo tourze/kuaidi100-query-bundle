@@ -8,14 +8,17 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Tourze\LockCommandBundle\Command\LockableCommand;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 
 #[AsCronTask(expression: '* * * * *')]
 #[AsCommand(name: self::NAME, description: '设置订阅状态')]
+#[Autoconfigure(public: true)]
 class SetSubscribedCommand extends LockableCommand
 {
     public const NAME = 'kuaidi100:set-subscribed';
+
     public function __construct(
         private readonly LogisticsNumRepository $numberRepository,
         private readonly LogisticsService $logisticsService,
