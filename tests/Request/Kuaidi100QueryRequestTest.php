@@ -2,11 +2,10 @@
 
 namespace Kuaidi100QueryBundle\Tests\Request;
 
-use HttpClientBundle\Tests\Request\RequestTestCase;
+use HttpClientBundle\Test\RequestTestCase;
 use Kuaidi100QueryBundle\Entity\Account;
 use Kuaidi100QueryBundle\Request\Kuaidi100QueryRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * @internal

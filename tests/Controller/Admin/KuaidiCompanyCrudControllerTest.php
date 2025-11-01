@@ -63,8 +63,7 @@ final class KuaidiCompanyCrudControllerTest extends AbstractEasyAdminControllerT
 
     public function testIndexPage(): void
     {
-        $client = self::createClientWithDatabase();
-        $this->loginAsAdmin($client);
+        $client = self::createAuthenticatedClient();
         $crawler = $client->request('GET', '/admin');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -78,8 +77,7 @@ final class KuaidiCompanyCrudControllerTest extends AbstractEasyAdminControllerT
 
     public function testCreateKuaidiCompany(): void
     {
-        $client = self::createClientWithDatabase();
-        $this->loginAsAdmin($client);
+        $client = self::createAuthenticatedClient();
         $client->request('GET', '/admin');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
