@@ -12,6 +12,7 @@ use Tourze\DoctrineSnowflakeBundle\DoctrineSnowflakeBundle;
 use Tourze\DoctrineTimestampBundle\DoctrineTimestampBundle;
 use Tourze\DoctrineTrackBundle\DoctrineTrackBundle;
 use Tourze\DoctrineUserBundle\DoctrineUserBundle;
+use Tourze\EasyAdminMenuBundle\EasyAdminMenuBundle;
 use Tourze\RoutingAutoLoaderBundle\RoutingAutoLoaderBundle;
 
 class Kuaidi100QueryBundle extends Bundle implements BundleDependencyInterface
@@ -27,6 +28,7 @@ class Kuaidi100QueryBundle extends Bundle implements BundleDependencyInterface
             DoctrineTrackBundle::class => ['all' => true],
             DoctrineUserBundle::class => ['all' => true],
             RoutingAutoLoaderBundle::class => ['all' => true],
+            EasyAdminMenuBundle::class => ['all' => true],
         ];
     }
 
