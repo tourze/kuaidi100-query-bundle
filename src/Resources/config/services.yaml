@@ -3,15 +3,18 @@ services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
 
-  Kuaidi100QueryBundle\Command\:
-    resource: '../../Command/'
-    public: true
   Kuaidi100QueryBundle\Controller\:
     resource: '../../Controller/'
-  Kuaidi100QueryBundle\EventSubscriber\:
-    resource: '../../EventSubscriber/'
   Kuaidi100QueryBundle\Repository\:
     resource: '../../Repository/'
   Kuaidi100QueryBundle\Service\:
     resource: '../../Service/'
+    public: true
+  Kuaidi100QueryBundle\EventSubscriber\:
+    resource: '../../EventSubscriber/'
+    public: true
+  Kuaidi100QueryBundle\Command\:
+    resource: '../../Command/'
+    public: true

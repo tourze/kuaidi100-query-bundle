@@ -4,7 +4,7 @@ namespace Kuaidi100QueryBundle\DependencyInjection;
 
 use Tourze\SymfonyDependencyServiceLoader\AutoExtension;
 
-class Kuaidi100QueryExtension extends AutoExtension
+final class Kuaidi100QueryExtension extends AutoExtension
 {
     protected function getConfigDir(): string
     {

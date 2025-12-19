@@ -12,7 +12,7 @@ use Tourze\PHPUnitSymfonyKernelTest\Attribute\AsRepository;
  * @extends ServiceEntityRepository<LogisticsNum>
  */
 #[AsRepository(entityClass: LogisticsNum::class)]
-class LogisticsNumRepository extends ServiceEntityRepository
+final class LogisticsNumRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

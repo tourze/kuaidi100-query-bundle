@@ -15,7 +15,7 @@ use Tourze\DoctrineUserBundle\DoctrineUserBundle;
 use Tourze\EasyAdminMenuBundle\EasyAdminMenuBundle;
 use Tourze\RoutingAutoLoaderBundle\RoutingAutoLoaderBundle;
 
-class Kuaidi100QueryBundle extends Bundle implements BundleDependencyInterface
+final class Kuaidi100QueryBundle extends Bundle implements BundleDependencyInterface
 {
     public static function getBundleDependencies(): array
     {

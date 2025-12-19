@@ -16,7 +16,7 @@ use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 #[AsCronTask(expression: '* * * * *')]
 #[AsCommand(name: self::NAME, description: '查询实时快递状态')]
 #[Autoconfigure(public: true)]
-class QueryNumberCommand extends LockableCommand
+final class QueryNumberCommand extends LockableCommand
 {
     public const NAME = 'kuaidi100:query-number';
 

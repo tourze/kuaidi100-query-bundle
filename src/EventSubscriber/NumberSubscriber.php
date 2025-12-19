@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 #[AsEntityListener(event: Events::postUpdate, method: 'subscribe', entity: LogisticsNum::class)]
 #[Autoconfigure(public: true)]
 #[WithMonologChannel(channel: 'kuaidi100_query')]
-readonly class NumberSubscriber
+final readonly class NumberSubscriber
 {
     public function __construct(
         private LogisticsService $logisticsService,

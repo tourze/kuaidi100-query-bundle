@@ -15,7 +15,7 @@ use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 #[AsCronTask(expression: '* * * * *')]
 #[AsCommand(name: self::NAME, description: '设置订阅状态')]
 #[Autoconfigure(public: true)]
-class SetSubscribedCommand extends LockableCommand
+final class SetSubscribedCommand extends LockableCommand
 {
     public const NAME = 'kuaidi100:set-subscribed';
 
