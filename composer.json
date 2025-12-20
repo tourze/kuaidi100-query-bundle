@@ -45,7 +45,7 @@
     "tourze/easy-admin-menu-bundle": "1.0.*",
     "tourze/enum-extra": "1.0.*",
     "tourze/http-client-bundle": "1.1.*",
-    "tourze/symfony-cron-job-bundle": "1.1.*",
+    "tourze/symfony-cron-job-bundle": "1.2.*",
     "tourze/symfony-dependency-service-loader": "1.0.*",
     "tourze/symfony-lock-command-bundle": "1.1.*",
     "tourze/symfony-routing-auto-loader-bundle": "1.0.*",
